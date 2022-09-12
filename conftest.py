@@ -28,6 +28,6 @@ class TrackedContainer:
 def container(request) -> Container:
     dockerfile_path = os.path.join(os.path.dirname(__file__), request.param)
     print(dockerfile_path)
-    container = TrackedContainer(dockerfile_path, "datascience-notebook")
+    container = TrackedContainer(dockerfile_path, request.param)
     yield container
     del container
