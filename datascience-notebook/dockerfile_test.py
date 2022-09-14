@@ -30,7 +30,8 @@ def test_can_use_poetry_in_container(container, tmp_path):
     # create valid pyproject.toml in container
     assert container.status == "created"
     subprocess.run(["docker", "cp", str(d), f"{container.id}:/home/jovyan/pyproject.toml"])
-    assert container.run("poetry add numpy").exit_code == 0
+    print(container.run("ls -la").output)
+    assert container.run("poetry install").exit_code == 0
 
 
 PYPROJECT_CONTENT = """
@@ -43,6 +44,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+numpy = "^1.23.3"
 
 
 [build-system]
