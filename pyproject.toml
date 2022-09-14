@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pylama = "^8.4.1"
+numpy = "^1.23.3"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -15,6 +15,7 @@ pytest = "^7.1.3"
 docker = "^6.0.0"
 pytest-xdist = "^2.5.0"
 black = "^22.8.0"
+pylama = "^8.4.1"
 
 [build-system]
 requires = ["poetry-core"]
