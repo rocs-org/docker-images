@@ -29,3 +29,5 @@ jobs:
         run: poetry install -v
       - name: Test docker image
         run: make test
+      - name: Lint python code
+        run: make lint
