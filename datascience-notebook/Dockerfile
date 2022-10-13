@@ -1,7 +1,6 @@
 FROM jupyter/datascience-notebook
 
-# change default shell to bash
-# RUN chsh -s /bin/bash
+RUN conda install nb_conda_kernels nb_conda
 
 # install jupyterlab git extension
 RUN pip install --upgrade jupyterlab-git
