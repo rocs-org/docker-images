@@ -28,6 +28,6 @@ jobs:
       - name: Install dependencies
         run: poetry install -v
       - name: Test docker image
-        run: make test
+        run: make test dir=datascience-notebook
       - name: Lint python code
         run: make lint
