@@ -1,0 +1,39 @@
+name: Publish docker images
+
+on:
+  schedule:
+    # Weekly, at 03:00 on Monday UTC time
+    - cron: "0 3 * * 1"
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: ['python-test-environment']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          version: latest
+      - name: Install dependencies
+        run: poetry install
+      - name: Build docker image
+        run: docker build -t ${{ matrix.image }}:latest ${{ matrix.image }}/.
+      - name: Test docker image
+        run: make test
+      - name: Publish docker image to github packages
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker tag ${{ matrix.image }}:latest ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:latest
+          docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:latest
