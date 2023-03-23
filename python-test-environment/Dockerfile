@@ -1,7 +1,7 @@
 FROM python:3.10
 
 # install make
-RUN apt add --no-cache make curl
+RUN apt add make curl
 
 # install poetry
 ENV POETRY_HOME=/etc/poetry
@@ -12,7 +12,7 @@ ENV PATH="${POETRY_HOME}/bin:${PATH}"
 RUN poetry config virtualenvs.create false
 
 # create user testuser
-RUN adduser -D testuser
+RUN adduser testuser
 
 # set workdir
 WORKDIR /home/testuser
