@@ -1,7 +1,7 @@
 FROM python:3.10
 
 # install make
-RUN apk add --no-cache make curl
+RUN apt add --no-cache make curl
 
 # install poetry
 ENV POETRY_HOME=/etc/poetry
