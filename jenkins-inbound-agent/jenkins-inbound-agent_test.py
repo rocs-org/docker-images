@@ -1,5 +1,4 @@
 import pytest
-import subprocess
 
 
 @pytest.mark.parametrize("container", ["jenkins-inbound-agent"], indirect=["container"])
@@ -10,4 +9,3 @@ def test_certificates_are_present_in_container(container):
     print(authorities)
     assert "CN = Root-CA" in authorities
     assert "DC = local, DC = rki, CN = SUB04-CA" in authorities
-
