@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['datascience-notebook', 'python-test-environment', 'smee-proxy']
+        image: ['datascience-notebook', 'python-test-environment', 'smee-proxy', 'jenkins-inbound-agent']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,6 +28,6 @@ jobs:
       - name: Install dependencies
         run: poetry install -v
       - name: Test docker image
-        run: make test dir=datascience-notebook
+        run: make test dir=${{ matrix.image }}
       - name: Lint python code
         run: make lint
