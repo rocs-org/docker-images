@@ -8,3 +8,7 @@ test:
 lint:
 	poetry run black . --check
 	poetry run pylama .
+
+# build the dockerfile from one folder
+build:
+	docker build ${folder}
