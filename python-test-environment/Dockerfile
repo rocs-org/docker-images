@@ -1,7 +1,7 @@
-FROM python:3.10
+FROM python:3.11-slim
 
 # install make
-RUN apt install make curl unixodbc
+RUN apt update && apt install -y make curl unixodbc-dev
 
 # install poetry
 ENV POETRY_HOME=/etc/poetry

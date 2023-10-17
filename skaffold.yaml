@@ -1,0 +1,61 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: dmz-sync
+build:
+  artifacts:
+    - image: ghcr.io/jakobkolb/datascience-notebook
+      context: datascience-notebook/
+      kaniko:
+        cache:
+          cacheCopyLayers: true
+        dockerfile: Dockerfile
+        buildArgs:
+          http_proxy: http://fw-bln.rki.local:8020
+          https_proxy: http://fw-bln.rki.local:8020
+          HTTP_PROXY: http://fw-bln.rki.local:8020
+          HTTPS_PROXY: http://fw-bln.rki.local:8020
+    - image: ghcr.io/jakobkolb/jenkins-inbound-agent
+      context: jenkins-inbound-agent/
+      kaniko:
+        cache:
+          cacheCopyLayers: true
+        dockerfile: Dockerfile
+        buildArgs:
+          http_proxy: http://fw-bln.rki.local:8020
+          https_proxy: http://fw-bln.rki.local:8020
+          HTTP_PROXY: http://fw-bln.rki.local:8020
+          HTTPS_PROXY: http://fw-bln.rki.local:8020
+    - image: ghcr.io/jakobkolb/python-test-environment
+      context: python-test-environment/
+      kaniko:
+        cache:
+          cacheCopyLayers: true
+        dockerfile: Dockerfile
+        buildArgs:
+          http_proxy: http://fw-bln.rki.local:8020
+          https_proxy: http://fw-bln.rki.local:8020
+          HTTP_PROXY: http://fw-bln.rki.local:8020
+          HTTPS_PROXY: http://fw-bln.rki.local:8020
+    - image: ghcr.io/jakobkolb/smee-proxy
+      context: smee-proxy/
+      kaniko:
+        cache:
+          cacheCopyLayers: true
+        dockerfile: Dockerfile
+        buildArgs:
+          http_proxy: http://fw-bln.rki.local:8020
+          https_proxy: http://fw-bln.rki.local:8020
+          HTTP_PROXY: http://fw-bln.rki.local:8020
+          HTTPS_PROXY: http://fw-bln.rki.local:8020
+
+  cluster:
+    HTTP_PROXY: 'http://fw-bln.rki.local:8020'
+    HTTPS_PROXY: 'http://fw-bln.rki.local:8020'
+    namespace: skaffold
+    serviceAccount: skaffold
+    dockerConfig:
+      secretName: docker-cfg-github
+    resources:
+      requests:
+        ephemeralStorage: 10G
