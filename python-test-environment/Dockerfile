@@ -18,3 +18,4 @@ RUN adduser testuser
 WORKDIR /home/testuser
 
 USER testuser
+
