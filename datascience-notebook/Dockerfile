@@ -1,6 +1,6 @@
 FROM jupyter/datascience-notebook
 
-RUN conda install nb_conda_kernels nb_conda
+RUN conda install nb_conda_kernels
 
 # install jupyterlab git extension
 RUN pip install --upgrade jupyterlab-git
