@@ -34,6 +34,12 @@ def test_can_use_poetry_in_container(container, tmp_path):
     assert container.run("poetry install").exit_code == 0
 
 
+@pytest.mark.parametrize("container", ["python-test-environment"], indirect=["container"])
+def test_can_pyodbc_in_container(container):
+    assert container.status == "created"
+    assert container.run("echo 'import pyodbc' | python").exit_code == 0
+
+
 PYPROJECT_CONTENT = """
 [tool.poetry]
 name = "jovyan"

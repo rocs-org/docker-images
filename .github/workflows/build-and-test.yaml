@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['datascience-notebook', 'python-test-environment', 'smee-proxy', 'jenkins-inbound-agent', 'toolbox']
+        image: ['datascience-notebook', 'python-test-environment', 'smee-proxy', 'jenkins-inbound-agent']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
