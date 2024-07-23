@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # install make
 RUN apt update && apt install -y make curl unixodbc-dev
